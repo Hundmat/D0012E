@@ -1,6 +1,9 @@
 import time
 import random
 import matplotlib.pyplot as plt
+import math
+
+
 def insertionSort(arr):
  
     # Traverse through 1 to len(arr)
@@ -36,31 +39,7 @@ def merge(arr): #This function is recursive function that will divide a array un
 
 
 
-""" def merge_sort(arrayLeft,arrayRight):
-    
-    n=1
-    merge_array=[]
-    while n<=len(arrayLeft) and n<=len(arrayRight):
-        if arrayLeft[n-1]>arrayRight[n-1]:
-            merge_array.append(arrayRight[n-1])
-            arrayRight.pop(n-1)
-        else:
-            merge_array.append(arrayLeft[n-1])
-            arrayLeft.pop(n-1)
-        n+=1
-        
-        
-    while n<=len(arrayLeft):
-        merge_array.append(arrayLeft[n-1])
-        arrayLeft.pop(n-1)
-        n+=1
-    while n<=len(arrayRight):
-        merge_array.append(arrayRight[n-1])
-        arrayRight.pop(n-1)
-        n+=1
-   
-    return merge_array """
-import math
+
 
 def binarySearch(arr, x):
     low = 0
@@ -104,20 +83,9 @@ def mergeSort(arr, k, func):
             lists.append(func(arr[i:i+k]))
 
     print(lists)
-    
-
-# print(output)
-
-        
 
 
-
-
-
-
-
-
-def random_array(n):
+def random_array(n):                                        #creates a array with random numbers from -100 to 100 with a size of n
     arr_rm=[]
     for i in range(0,n):
         arr_rm.append(random.randint(-100,100))
@@ -128,37 +96,36 @@ def sorted_array(n):
     return bSort(arr)
 
 
-def tester(n):
-    total_time=0
+def tester(n):                                              #test the algorithm with a random array with a size of n
     rm_array=random_array(n)
-    start= time.perf_counter()
+    start= time.perf_counter()                              #check time before call of algorithm
     insertionSort(rm_array)
-    end= time.perf_counter()
-    total_time=(end-start)  
-    #print((total_time)," sekunder")
-    return total_time
+    end= time.perf_counter()                                #check time after call of algorithm
+    return end-start
 
-def graph_creater(graph_inf):
+def graph_creater(graph_inf):                               #Create a graph that represent the data that we collect in main
     x_ax=[]
     y_ax=[]
-    for x,y in graph_inf.items():
+
+    for x,y in graph_inf.items():                           #create x and y axis
         x_ax.append(int(x))
         y_ax.append(float(y))
-    print(x_ax)
-    print(y_ax)
+
     plt.plot(x_ax, y_ax)
     plt.show()
+
 def main():
     graph_inf={}
-    for x in range(1,20):
+
+    for size in range(1,500):                               #For loop that test the algorithm that gets an input with the size of 1-xxx
         
         total_time=0
-        #print("10 tests with size ",arg)
-        for i in range(1,20):
-           total_time+= tester(x)
-        #print("Average time for 10 tests with size ",arg,"= ",total_time/arg)
-        graph_inf[x]=(total_time/20)
-        graph_inf=dict(sorted(graph_inf.items()))
+        for i in range(1,100):                              #For loop that test the algorithm x times that gets an input with the size created before 
+           total_time+= tester(size)                        #collect the total time
+
+        graph_inf[size]=(total_time/100)                    #bind the avarge time to the size
+        graph_inf=dict(sorted(graph_inf.items()))           
+
     graph_creater(graph_inf)
 
     
