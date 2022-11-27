@@ -42,23 +42,47 @@ def merge(left_arr,right_arr):
 
 #--------------------------------------DEl 2------------------------------------ O(n^2)
 
-def cross_Maxvalue(arr,low,high,mid):
+def cross_Maxvalue(low_arr,high_arr):#O(n/2)+O(n/2)=2*O(n/2)
     leftSum= -sys.maxsize
     sum=0
-    for i in range(mid,low-1,-1):
-        sum += arr[i]
+    for i in range(len(low_arr)-1,-1,-1):#O(n/2)
+        sum += low_arr[i]
         if sum>leftSum:
             leftSum=sum
+    rightSum= -sys.maxsize
+    sum=0
+    for i in range(0,len(high_arr)): #O(n/2)
+        sum += high_arr[i]
+        if sum>rightSum:
+            rightSum=sum
+    return leftSum+rightSum
+
+def maxSum(arr):
+    n=len(arr)
+    if(n==1):
+        return arr[0]
+        
+    left_arr=arr[:n//2]
+    right_arr=arr[n//2:]
+
+    maxSumL =maxSum(left_arr)#O(n/2)
+    maxSumR =maxSum(right_arr)#O(n/2)
+    
     leftSum= -sys.maxsize
     sum=0
-    for i in range(mid+1,high+1):
-        sum += arr[i]
+    for i in range(len(left_arr)-1,-1,-1):#O(n/2)
+        sum += left_arr[i]
         if sum>leftSum:
             leftSum=sum
-
-
-
-
+    rightSum= -sys.maxsize
+    sum=0
+    for i in range(0,len(right_arr)): #O(n/2)
+        sum += right_arr[i]
+        if sum>rightSum:
+            rightSum=sum
+    maxCross= leftSum+rightSum
+    
+    return max(maxSumL,maxSumR,maxCross)
 
 
 def random_array(n):                                        #creates a array with random numbers from -100 to 100 with a size of n
@@ -68,10 +92,11 @@ def random_array(n):                                        #creates a array wit
     return arr_rm
 
 def main():
-    r_arr=[1,32,42,132,3,4,5,6,56]
+    r_arr=[1,2,3,-4]
    
     print(r_arr)
-    print(inc_smallest([1,32,42,132,3,4,5,6,56],[]))
-    print(dc_smallest([1,32,42,132,3,4,5,6,56]))
+    #print(inc_smallest([1,32,42,132,3,4,5,6,56],[]))
+    #print(dc_smallest([1,32,42,132,3,4,5,6,56]))
+    print(maxSum(r_arr))
 
 main()
