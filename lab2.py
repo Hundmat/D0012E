@@ -19,7 +19,7 @@ def inc_smallest(arr,small_arr):
 
     return inc_smallest(arr,small_arr)
 
-def dc_smallest(arr):
+def dc_smallest(arr):#3*(2T(n/2))=O(n)
     n=len(arr)
 
     left_arr=arr[:n//2]
@@ -93,12 +93,12 @@ def random_array(n):                                        #creates a array wit
     return arr_rm
 
 def main():
-    r_arr=random_array(6)
+    r_arr=random_array(8)
 
    
     print(r_arr)
-    #print(inc_smallest([1,32,42,132,3,4,5,6,56],[]))
-    #print(dc_smallest([1,32,42,132,3,4,5,6,56]))
+    #print(inc_smallest([73,-58,-95,24,-98,91],[]))
+    #print(dc_smallest([73,-58,-95,24,-98,91]))
     print(maxSum(r_arr))
 
 main()
