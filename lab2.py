@@ -57,32 +57,41 @@ def cross_Maxvalue(low_arr,high_arr):#O(n/2)+O(n/2)=2*O(n/2)
             rightSum=sum
     return leftSum+rightSum
 
-def maxSum(arr): #2T(n/2)+O(n/2)+O(n/2)=O(n)+O(n/2)+O(n/2)=O(n)
+def maxSum(arr):                                                #2T(n/2)+O(n/2)+O(n/2)=O(n)+O(n/2)+O(n/2)=O(n)
     n=len(arr)
     if(n==1):
         return arr[0]
-        
+
+    #Divide array, left and right 
     left_arr=arr[:n//2]
     right_arr=arr[n//2:]
 
-    maxSumL =maxSum(left_arr)#O(n/2)
-    maxSumR =maxSum(right_arr)#O(n/2)
+    #Call maxSum but for the two arrays
+    maxSumL =maxSum(left_arr)                                   #O(n/2)
+    maxSumR =maxSum(right_arr)                                  #O(n/2)
     
+    #start values
     leftSum=left_arr[0]
     sum=0
-    for i in range(len(left_arr)-1,-1,-1):#O(n/2)
+
+    #Going from end of the left array (middle) inward findning the largest sum
+    for i in range(len(left_arr)-1,-1,-1):                      #O(n/2)
         sum += left_arr[i]
         if sum>leftSum:
             leftSum=sum
-            
+
+    #Going from start of the right array outward findning the largest sum      
     rightSum= right_arr[0]
     sum=0
-    for i in range(0,len(right_arr)): #O(n/2)
+    for i in range(0,len(right_arr)):                           #O(n/2)
         sum += right_arr[i]
         if sum>rightSum:
             rightSum=sum
 
+    
     maxCross= leftSum+rightSum
+
+    #Return the max value of the three inputs
     return max(maxSumL,maxSumR,maxCross)
 
 
@@ -97,8 +106,6 @@ def main():
 
    
     print(r_arr)
-    #print(inc_smallest([73,-58,-95,24,-98,91],[]))
-    #print(dc_smallest([73,-58,-95,24,-98,91]))
     print(maxSum(r_arr))
 
 main()
