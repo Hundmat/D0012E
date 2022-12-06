@@ -1,8 +1,8 @@
 import random
 import sys
 #--------------------------------------DEl 1------------------------------------ O(3n)=O(n)
-def inc_smallest(arr,small_arr):
-
+def inc_smallest(arr,small_arr = []):
+   
     if(len(small_arr)==3):
         return small_arr
 
@@ -10,6 +10,7 @@ def inc_smallest(arr,small_arr):
     index=0
 
     for i in range(1,len(arr)):
+       
         if smallest>arr[i]:
             smallest=arr[i]
             index=i
@@ -22,6 +23,9 @@ def inc_smallest(arr,small_arr):
 def dc_smallest(arr):#3*(2T(n/2))=O(n)
     n=len(arr)
 
+    if n < 6:
+        return inc_smallest(arr)
+
     left_arr=arr[:n//2]
     right_arr=arr[n//2:]
 
@@ -29,7 +33,9 @@ def dc_smallest(arr):#3*(2T(n/2))=O(n)
 
 def merge(left_arr,right_arr):
     combined_array=[]
+    
     while 3>len(combined_array):
+        
         if(left_arr[0]<right_arr[0]):
             combined_array+=[left_arr[0]]
             left_arr=left_arr[1:]
@@ -106,6 +112,6 @@ def main():
 
    
     print(r_arr)
-    print(maxSum(r_arr))
+    print(dc_smallest(r_arr))
 
 main()
