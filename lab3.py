@@ -43,7 +43,7 @@ class BST:
         parent.right        = node.left
         node.left           = parent
         parent.parent       = node
-    
+
     def rotateRight(self, node):
         print("rotateRight", node.val)
         parent              = node.parent
@@ -144,12 +144,12 @@ def print2D(root):
 
 #arr =[11,3,7,9,12,43,4,1,10,85]
 tree = BST(Node(11))
+tree.insert(4)
 tree.insert(3)
-tree.insert(7)
-tree.insert(2)
-tree.insert(13)
-tree.insert(12)
-# tree.insert(14)
+tree.insert(15)
+tree.insert(16)
+#tree.insert(12)
+#tree.insert(14)
 # tree.insert(15)
 # tree.insert(16)
 
