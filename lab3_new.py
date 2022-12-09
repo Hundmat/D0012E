@@ -45,7 +45,7 @@ class BST:
             
             for i in range(len(sortedList)//2-1, -1,-1):
                 self.insert(sortedList[i])
-                self.insert(sortedList[len(sortedList)//2+1+(i)])
+                self.insert(sortedList[(len(sortedList)//2)+1+(len(sortedList)//2-1)-i])
     
     def inorder(self,root,res):
         if root:
@@ -141,6 +141,7 @@ class BST:
                 else:
                     tree = tree.right
         self.traverse(node)
+        print2D(self.root)
     
 COUNT = [10]
 def print2DUtil(root, space):
@@ -179,12 +180,8 @@ tree.insert(13)
 # tree.insert(12)
 tree.insert(14)
 tree.insert(15)
-tree.insert(16)
-tree.insert(23)
-tree.insert(2)
-tree.insert(7)
-tree.insert(4)
-# tree.insert(18)
+
+tree.insert(18)
 # tree.insert(24)
 
 
