@@ -23,30 +23,48 @@ class BST:
         if c <= 0.5 or c >= 1:
             raise Exception("c must be between 0.5 and 1")
 
-    def reorder(self,node):
+    def reorder(self, node):
+        print("reorder", node.val)
 
-        
-        
-        
-        print2D(self.root)
-
-        if node.left and node.left.right:
-            self.rotateLeft(node.left)
-        elif node.right and node.right.left:
+        if node.isRight() and node.parent.isLeft():
+            self.rotateLeft(node.parent)
             self.rotateRight(node.right)
-        elif node.left and node.left.left:
-            self.rotateRight(node)
-        elif node.right and node.right.right:
-            self.rotateLeft(node)
+        elif node.isLeft() and node.parent.isRight():
+            self.rotateRight(node.parent)
+            self.rotateLeft(node.left)
+        elif node.isRight() and node.parent.isRight():
+            self.rotateLeft(node.parent)
+        elif node.isLeft() and node.parent.isLeft():
+            self.rotateRight(node.parent)
         else:
+            leftArr = []
+            rightArr = []
             sortedList=self.inorder(self.root,[])
             print(sortedList)
             self.root=Node(sortedList[len(sortedList)//2])
-            
-            for i in range(len(sortedList)//2-1, -1,-1):
-                self.insert(sortedList[i])
-                self.insert(sortedList[(len(sortedList)//2)+1+(len(sortedList)//2-1)-i])
-    
+            leftArr+= sortedList[:len(sortedList)//2]
+            rightArr+= sortedList[(len(sortedList)//2)+1:]
+            print(leftArr)
+            print(rightArr)
+            for i in range(len(leftArr)):
+                self.insert(leftArr[i])
+                self.rightArr_counter(rightArr)
+        print2D(self.root)
+    def rightArr_counter(self,arr):
+        if len(arr)>0:
+            self.insert(arr[0])
+            arr.pop(0)
+        else:
+            return
+
+
+# for i in range(0,2*len(sortedlist))
+#   if(i%2 == 0 and leftArr[i//2]):
+#       self.insert(leftArr[i//2])
+#   elif(i%2 == 1 and rightArr[i//2]):
+#       self.insert(rightArr[i//2])    
+
+
     def inorder(self,root,res):
         if root:
  
@@ -101,20 +119,24 @@ class BST:
             node.parent.right   = node
 
 
-    def traverse(self,node):
+    def traverse(self, node):
 
+        parent          = node.parent
 
-        leftSize        = self.checker(self.root.left)
-        rightSize       = self.checker(self.root.right)
-        combinedSize    = leftSize + rightSize + 1
+        if parent:
+            leftSize      = self.checker(parent.left)
+            rightSize     = self.checker(parent.right)
+            combinedSize  = leftSize + rightSize + 1
+            
 
-        balanced        = (
-            (rightSize <= self.c * combinedSize) and
-            (leftSize <= self.c * combinedSize)
-        )
+            balanced        = (
+                (rightSize <= self.c * combinedSize) and
+                (leftSize <= self.c * combinedSize ))
 
-        if not balanced:
-            self.reorder(node.parent)
+            if balanced:
+                self.traverse(parent)
+            else:
+                self.reorder(node)  
 
     def checker(self, node):
         if node == None:
@@ -140,6 +162,7 @@ class BST:
                     break
                 else:
                     tree = tree.right
+        
         self.traverse(node)
         print2D(self.root)
     
@@ -175,14 +198,23 @@ def print2D(root):
 tree = BST(Node(10), 0.51)
 tree.insert(11)
 tree.insert(12)
-# tree.insert(10)
 tree.insert(13)
-# tree.insert(12)
 tree.insert(14)
 tree.insert(15)
+tree.insert(1)
+tree.insert(2)
+tree.insert(3)
+tree.insert(90)
 
 tree.insert(18)
-# tree.insert(24)
+tree.insert(24)
+tree.insert(25)
+tree.insert(26)
+tree.insert(27)
+tree.insert(28)
+tree.insert(29)
+tree.insert(30)
+
 
 
 print2D(tree.root)
